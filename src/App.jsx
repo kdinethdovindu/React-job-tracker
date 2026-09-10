@@ -1,4 +1,5 @@
 import './App.css'
+import AddApplication from './pages/AddApplication'
 import Dashboard from './pages/Dashboard'
 
 
@@ -12,6 +13,7 @@ function App() {
       </header>
       
       <Dashboard/>
+      <AddApplication/>
     </div>
   )
 }
