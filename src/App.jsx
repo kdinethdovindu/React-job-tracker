@@ -1,12 +1,17 @@
 import './App.css'
+import Dashboard from './pages/Dashboard'
+
 
 function App() {
   
 
   return (
     <div>
-      <h1>CareerTracking</h1>
-      <p>Job Application Tracker</p>
+      <header>
+        <h2>Career Track</h2>
+      </header>
+      
+      <Dashboard/>
     </div>
   )
 }
