@@ -1,10 +1,19 @@
 import './App.css'
 import AddApplication from './pages/AddApplication'
+import Applications from './pages/Applications';
 import Dashboard from './pages/Dashboard'
+import { useState } from 'react'
 
 
 function App() {
-  
+  const [applications,setApplication] = useState([]);
+
+  const addApplication = (newApplication) => {
+    setApplication((currentApplications) => [
+      ...currentApplications,
+      newApplication,
+    ]);
+  };
 
   return (
     <div>
@@ -13,7 +22,8 @@ function App() {
       </header>
       
       <Dashboard/>
-      <AddApplication/>
+      <AddApplication addApplication={addApplication}/>
+      <Applications applications={applications}/>
     </div>
   )
 }

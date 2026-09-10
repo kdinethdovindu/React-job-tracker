@@ -92,3 +92,25 @@ textarea{
   border-radius: 6px;
   cursor: pointer;
 }
+
+.applications-list {
+  max-width: 800px;
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.application-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.application-card h3 {
+  margin-top: 0;
+}
+
+.application-card a {
+  text-decoration: none;
+}

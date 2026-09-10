@@ -1,7 +1,7 @@
 import { useState } from "react";
 import '../index.css'
 
-function AddApplication(){
+function AddApplication({addApplication}){
     const [company,setCompany] = useState("");
     const [position,setPosition] = useState("");
     const [appliedDate, setAppliedDate] = useState("");
@@ -12,6 +12,7 @@ function AddApplication(){
     const handleSubmit = (event) => {
         event.preventDefault();
         const newApplication = {
+            id: Date.now(),
             company,
             position,
             appliedDate,
@@ -19,12 +20,20 @@ function AddApplication(){
             jobLink,
             notes,
         }
-        console.log({newApplication});
+        addApplication(newApplication);
+
+        setCompany("");
+        setPosition("");
+        setAppliedDate("");
+        setStatus("Applied");
+        setJobLink("");
+        setNotes("");
     }
 
     return(
         <main>
             <h1>Add Job Application</h1>
+
             <form className="application-form" onSubmit={handleSubmit}>
                 <div> 
                     <label htmlFor="company">Company Name</label>
