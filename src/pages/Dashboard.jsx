@@ -1,7 +1,20 @@
 import '../App.css'
 import DashboardCard from '../components/DashboardCard'
 
-function Dashboard() {
+function Dashboard({applications}) {
+  const totalApplication = applications.length;
+  const appliedCount = applications.filter(
+    (application) => application.status === "Applied"
+  ).length;
+  const interviewCount = applications.filter(
+    (application) => application.status === "Interview"
+  ).length;
+  const offerCount = applications.filter(
+    (application) => application.status === "Offer"
+  ).length;
+  const rejectedCount = applications.filter(
+  (application) => application.status === "Rejected"
+).length;
   
 
   return (
@@ -9,11 +22,11 @@ function Dashboard() {
       <h1>Job Application Dashboard</h1>
 
       <div className='dashboard-grid'>
-        <DashboardCard title="Total Applications" value={0} />
-        <DashboardCard title="Applied" value={0} />
-        <DashboardCard title="Interview" value={0} />
-        <DashboardCard title="Offers" value={0} />
-        <DashboardCard title="Rejected" value={0} />
+        <DashboardCard title="Total Applications" value={totalApplication} />
+        <DashboardCard title="Applied" value={appliedCount} />
+        <DashboardCard title="Interview" value={interviewCount} />
+        <DashboardCard title="Offers" value={offerCount} />
+        <DashboardCard title="Rejected" value={rejectedCount} />
 
       </div>
     </main>

@@ -2,8 +2,9 @@ import './App.css'
 import AddApplication from './pages/AddApplication'
 import Applications from './pages/Applications';
 import Dashboard from './pages/Dashboard'
+import Navbar from "./components/Navbar";
 import { useState } from 'react'
-
+import { Routes, Route } from "react-router";
 
 function App() {
   const [applications,setApplication] = useState([]);
@@ -16,15 +17,34 @@ function App() {
   };
 
   return (
-    <div>
-      <header>
-        <h2>Career Track</h2>
-      </header>
-      
-      <Dashboard/>
-      <AddApplication addApplication={addApplication}/>
-      <Applications applications={applications}/>
-    </div>
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Dashboard applications={applications} />
+          }
+        />
+
+        <Route
+          path="/applications"
+          element={
+            <Applications applications={applications} />
+          }
+        />
+
+        <Route
+          path="/add-application"
+          element={
+            <AddApplication
+              addApplication={addApplication}
+            />
+          }
+        />
+      </Routes>
+    </>
   )
 }
 
