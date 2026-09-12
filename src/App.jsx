@@ -3,14 +3,34 @@ import AddApplication from './pages/AddApplication'
 import Applications from './pages/Applications';
 import Dashboard from './pages/Dashboard'
 import Navbar from "./components/Navbar";
-import { useState } from 'react'
+import { useEffect,useState } from 'react'
 import { Routes, Route } from "react-router";
 
 function App() {
-  const [applications,setApplication] = useState([]);
+  const [applications, setApplications] = useState(() => {
+    const savedApplications =
+      localStorage.getItem("applications");
+
+    if (!savedApplications) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(savedApplications);
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "applications",
+      JSON.stringify(applications)
+    );
+  }, [applications]);
 
   const addApplication = (newApplication) => {
-    setApplication((currentApplications) => [
+    setApplications((currentApplications) => [
       ...currentApplications,
       newApplication,
     ]);
