@@ -144,3 +144,22 @@ textarea{
   color: #111;
   font-weight: bold;
 }
+
+.application-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.application-controls input,
+.application-controls select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.application-controls input {
+  min-width: 260px;
+  flex: 1;
+}
