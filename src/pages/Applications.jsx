@@ -2,6 +2,7 @@
 import ApplicationCard from "../components/ApplicationCard";
 import { useState } from "react";
 
+
 function Applications({ applications ,deleteApplication, updateApplicationStatus, }) {
   const [searchTerm,setSearchTerm] = useState("");
   const [statusFilter,setStatusFilter] = useState("All");

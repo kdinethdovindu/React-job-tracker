@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Navbar from "./components/Navbar";
 import { useEffect,useState } from 'react'
 import { Routes, Route } from "react-router";
+import EditApplication from "./pages/EditApplication";
 
 function App() {
   const [applications, setApplications] = useState(() => {
@@ -57,6 +58,16 @@ function App() {
     );
   };
 
+  const updateApplication = (updatedApplication) => {
+    setApplications((currentApplications) =>
+      currentApplications.map((application) =>
+        application.id === updatedApplication.id
+          ? updatedApplication
+          : application
+      )
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -81,6 +92,16 @@ function App() {
           element={
             <AddApplication
               addApplication={addApplication}
+            />
+          }
+        />
+
+        <Route
+          path="/applications/:id/edit"
+          element={
+            <EditApplication
+              applications={applications}
+              updateApplication={updateApplication}
             />
           }
         />

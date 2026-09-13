@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 function ApplicationCard({application ,deleteApplication, updateApplicationStatus}){
   const handleDelete = () => {
     const shouldDelete = window.confirm(
@@ -55,11 +56,20 @@ return (
           <strong>Notes:</strong> {application.notes}
         </p>
       )}
+
+      <Link
+        to={`/applications/${application.id}/edit`}
+        >
+        Edit
+      </Link>
+
       <button
         onClick={handleDelete}
       >
         Delete
       </button>
+
+
     </div>
   );
 
