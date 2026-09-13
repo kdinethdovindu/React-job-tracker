@@ -36,6 +36,27 @@ function App() {
     ]);
   };
 
+  const deleteApplication = (id) => {
+    setApplications((currentApplications) =>
+      currentApplications.filter(
+        (application) => application.id !== id
+      )
+    );
+  };
+
+  const updateApplicationStatus = (id,newStatus) => {
+    setApplications((currentApplications) => 
+      currentApplications.map((application)=>
+        application.id === id
+          ?{
+            ...application,
+            status : newStatus,
+          }
+          :application
+      )
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -51,7 +72,7 @@ function App() {
         <Route
           path="/applications"
           element={
-            <Applications applications={applications} />
+            <Applications applications={applications} deleteApplication={deleteApplication} updateApplicationStatus={updateApplicationStatus} />
           }
         />
 

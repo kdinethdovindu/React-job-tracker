@@ -2,7 +2,7 @@
 import ApplicationCard from "../components/ApplicationCard";
 import { useState } from "react";
 
-function Applications({ applications }) {
+function Applications({ applications ,deleteApplication, updateApplicationStatus, }) {
   const [searchTerm,setSearchTerm] = useState("");
   const [statusFilter,setStatusFilter] = useState("All");
   const [sortOption, setSortOption] = useState("newest");
@@ -85,6 +85,8 @@ function Applications({ applications }) {
             <ApplicationCard
               key={application.id}
               application={application}
+              deleteApplication={deleteApplication}
+              updateApplicationStatus={updateApplicationStatus}
             />
           ))}
         </div>
