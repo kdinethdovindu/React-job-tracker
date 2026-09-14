@@ -1,9 +1,12 @@
 
 import ApplicationCard from "../components/ApplicationCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ApplicationContext } from "../context/ApplicationContext";
 
 
-function Applications({ applications ,deleteApplication, updateApplicationStatus, }) {
+function Applications() {
+  const { applications } =
+    useContext(ApplicationContext);
   const [searchTerm,setSearchTerm] = useState("");
   const [statusFilter,setStatusFilter] = useState("All");
   const [sortOption, setSortOption] = useState("newest");
@@ -83,12 +86,10 @@ function Applications({ applications ,deleteApplication, updateApplicationStatus
       ) : (
         <div className="applications-list">
           {sortedApplications.map((application) => (
-            <ApplicationCard
-              key={application.id}
-              application={application}
-              deleteApplication={deleteApplication}
-              updateApplicationStatus={updateApplicationStatus}
-            />
+              <ApplicationCard
+                key={application.id}
+                application={application}
+              />
           ))}
         </div>
       )}

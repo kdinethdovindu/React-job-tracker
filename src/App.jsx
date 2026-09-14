@@ -1,79 +1,15 @@
-import './App.css'
-import AddApplication from './pages/AddApplication'
-import Applications from './pages/Applications';
-import Dashboard from './pages/Dashboard'
-import Navbar from "./components/Navbar";
-import { useEffect,useReducer } from 'react'
-import { Routes, Route } from "react-router";
-import EditApplication from "./pages/EditApplication";
-import applicationReducer from './reducers/applicationReducer';
+import {
+  Routes,
+  Route,
+} from "react-router";
 
+import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Applications from "./pages/Applications";
+import AddApplication from "./pages/AddApplication";
+import EditApplication from "./pages/EditApplication";
 
 function App() {
-  const initializeApplications = () => {
-    const savedApplications =
-      localStorage.getItem("applications");
-
-    if (!savedApplications) {
-      return [];
-    }
-
-    try {
-      return JSON.parse(savedApplications);
-    } catch {
-      return [];
-    }
-  };
-
-  const [applications, dispatch] = useReducer(
-    applicationReducer,
-    [],
-    initializeApplications
-  );
-
-  useEffect(() => {
-    localStorage.setItem(
-      "applications",
-      JSON.stringify(applications)
-    );
-  }, [applications]);
-
-  const addApplication = (newApplication) => {
-    dispatch({
-      type: "ADD_APPLICATION",
-      payload: newApplication,
-    });
-  };
-
-  const deleteApplication = (id) => {
-    dispatch({
-      type: "DELETE_APPLICATION",
-      payload: id,
-    });
-  };
-
-  const updateApplicationStatus = (
-    id,
-    newStatus
-  ) => {
-    dispatch({
-      type: "UPDATE_STATUS",
-      payload: {
-        id,
-        status: newStatus,
-      },
-    });
-  };
-
-  const updateApplication = (
-    updatedApplication
-  ) => {
-    dispatch({
-      type: "UPDATE_APPLICATION",
-      payload: updatedApplication,
-    });
-  };
-
   return (
     <>
       <Navbar />
@@ -81,39 +17,26 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            <Dashboard applications={applications} />
-          }
+          element={<Dashboard />}
         />
 
         <Route
           path="/applications"
-          element={
-            <Applications applications={applications} deleteApplication={deleteApplication} updateApplicationStatus={updateApplicationStatus} />
-          }
+          element={<Applications />}
         />
 
         <Route
           path="/add-application"
-          element={
-            <AddApplication
-              addApplication={addApplication}
-            />
-          }
+          element={<AddApplication />}
         />
 
         <Route
           path="/applications/:id/edit"
-          element={
-            <EditApplication
-              applications={applications}
-              updateApplication={updateApplication}
-            />
-          }
+          element={<EditApplication />}
         />
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

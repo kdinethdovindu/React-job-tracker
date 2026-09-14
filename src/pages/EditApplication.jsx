@@ -1,8 +1,17 @@
-import { useState } from "react"
-import { useNavigate,useParams } from "react-router"
-import ApplicationForm from "../components/ApplicationForm";
+import { useContext } from "react";
+import {
+  useNavigate,
+  useParams,
+} from "react-router";
 
-function EditApplication({applications,updateApplication}) {
+import ApplicationForm from "../components/ApplicationForm";
+import { ApplicationContext } from "../context/ApplicationContext";
+
+function EditApplication() {
+    const {
+        applications,
+        updateApplication,
+    } = useContext(ApplicationContext);
     const {id} = useParams();
     const application = applications.find(
         (application) => application.id === Number(id)
