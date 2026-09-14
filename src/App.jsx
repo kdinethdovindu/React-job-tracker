@@ -3,12 +3,14 @@ import AddApplication from './pages/AddApplication'
 import Applications from './pages/Applications';
 import Dashboard from './pages/Dashboard'
 import Navbar from "./components/Navbar";
-import { useEffect,useState } from 'react'
+import { useEffect,useReducer } from 'react'
 import { Routes, Route } from "react-router";
 import EditApplication from "./pages/EditApplication";
+import applicationReducer from './reducers/applicationReducer';
+
 
 function App() {
-  const [applications, setApplications] = useState(() => {
+  const initializeApplications = () => {
     const savedApplications =
       localStorage.getItem("applications");
 
@@ -21,7 +23,13 @@ function App() {
     } catch {
       return [];
     }
-  });
+  };
+
+  const [applications, dispatch] = useReducer(
+    applicationReducer,
+    [],
+    initializeApplications
+  );
 
   useEffect(() => {
     localStorage.setItem(
@@ -31,41 +39,39 @@ function App() {
   }, [applications]);
 
   const addApplication = (newApplication) => {
-    setApplications((currentApplications) => [
-      ...currentApplications,
-      newApplication,
-    ]);
+    dispatch({
+      type: "ADD_APPLICATION",
+      payload: newApplication,
+    });
   };
 
   const deleteApplication = (id) => {
-    setApplications((currentApplications) =>
-      currentApplications.filter(
-        (application) => application.id !== id
-      )
-    );
+    dispatch({
+      type: "DELETE_APPLICATION",
+      payload: id,
+    });
   };
 
-  const updateApplicationStatus = (id,newStatus) => {
-    setApplications((currentApplications) => 
-      currentApplications.map((application)=>
-        application.id === id
-          ?{
-            ...application,
-            status : newStatus,
-          }
-          :application
-      )
-    );
+  const updateApplicationStatus = (
+    id,
+    newStatus
+  ) => {
+    dispatch({
+      type: "UPDATE_STATUS",
+      payload: {
+        id,
+        status: newStatus,
+      },
+    });
   };
 
-  const updateApplication = (updatedApplication) => {
-    setApplications((currentApplications) =>
-      currentApplications.map((application) =>
-        application.id === updatedApplication.id
-          ? updatedApplication
-          : application
-      )
-    );
+  const updateApplication = (
+    updatedApplication
+  ) => {
+    dispatch({
+      type: "UPDATE_APPLICATION",
+      payload: updatedApplication,
+    });
   };
 
   return (
