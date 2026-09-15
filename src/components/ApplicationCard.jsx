@@ -6,6 +6,7 @@ function ApplicationCard({ application }) {
     deleteApplication,
     updateApplicationStatus,
   } = useApplications();
+
   const handleDelete = () => {
     const shouldDelete = window.confirm(
       `Delete the application for ${application.company}?`
@@ -15,34 +16,60 @@ function ApplicationCard({ application }) {
       deleteApplication(application.id);
     }
   };
-return (
+
+  const formattedDate = application.appliedDate
+    ? new Date(
+        `${application.appliedDate}T00:00:00`
+      ).toLocaleDateString()
+    : "Not provided";
+
+  return (
     <div className="application-card">
-      <h3>{application.company}</h3>
+      <div>
+        <h3>{application.company}</h3>
+        <p className="position-text">
+          {application.position}
+        </p>
+      </div>
 
-      <p>{application.position}</p>
+      <div className="status-row">
+        <label
+          htmlFor={`status-${application.id}`}
+        >
+          Status
+        </label>
 
-      <label htmlFor={`status-${application.id}`}>
-        Status
-      </label>
+        <select
+          id={`status-${application.id}`}
+          value={application.status}
+          onChange={(event) =>
+            updateApplicationStatus(
+              application.id,
+              event.target.value
+            )
+          }
+        >
+          <option value="Applied">
+            Applied
+          </option>
 
-      <select
-        id={`status-${application.id}`}
-        value={application.status}
-        onChange={(event) =>
-        updateApplicationStatus(
-          application.id,
-          event.target.value
-        )
-      }
-      >
-        <option value="Applied">Applied</option>
-        <option value="Interview">Interview</option>
-        <option value="Offer">Offer</option>
-        <option value="Rejected">Rejected</option>
-      </select>
+          <option value="Interview">
+            Interview
+          </option>
+
+          <option value="Offer">
+            Offer
+          </option>
+
+          <option value="Rejected">
+            Rejected
+          </option>
+        </select>
+      </div>
 
       <p>
-        <strong>Applied Date:</strong> {application.appliedDate}
+        <strong>Applied Date:</strong>{" "}
+        {formattedDate}
       </p>
 
       {application.jobLink && (
@@ -52,33 +79,39 @@ return (
             target="_blank"
             rel="noreferrer"
           >
-            View Job
+            View Job Posting
           </a>
         </p>
       )}
 
       {application.notes && (
-        <p>
-          <strong>Notes:</strong> {application.notes}
-        </p>
+        <div>
+          <strong>Notes:</strong>
+
+          <p className="application-notes">
+            {application.notes}
+          </p>
+        </div>
       )}
 
-      <Link
-        to={`/applications/${application.id}/edit`}
+      <div className="card-actions">
+        <Link
+          className="button-link"
+          to={`/applications/${application.id}/edit`}
         >
-        Edit
-      </Link>
+          Edit
+        </Link>
 
-      <button
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
-
-
+        <button
+          className="delete-button"
+          type="button"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
-
-
 }
+
 export default ApplicationCard;

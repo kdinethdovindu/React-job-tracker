@@ -14,6 +14,7 @@ function ApplicationForm({
   onSubmit,
   submitLabel,
 }) {
+  const [errors,setErrors] = useState({});
   const [company, setCompany] = useState(
     initialData.company
   );
@@ -37,17 +38,50 @@ function ApplicationForm({
   const [notes, setNotes] = useState(
     initialData.notes
   );
+  const validateForm =() => {
+    const newErrors = {};
+    if(!company.trim()){
+      newErrors.company = "Company name is required";
+    }
+    if (!position.trim()) {
+      newErrors.position = "Position is required.";
+    }
+
+    if (!appliedDate) {
+      newErrors.appliedDate = "Applied date is required.";
+    }
+
+    if (jobLink.trim()) {
+      try {
+        new URL(jobLink);
+      } catch {
+        newErrors.jobLink =
+          "Enter a valid URL.";
+      }
+    }
+
+    return newErrors;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length >0){
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
+
     const formData = {
-      company,
-      position,
+      company: company.trim(),
+      position: position.trim(),
       appliedDate,
       status,
-      jobLink,
-      notes,
+      jobLink: jobLink.trim(),
+      notes: notes.trim(),
     };
 
     onSubmit(formData);
