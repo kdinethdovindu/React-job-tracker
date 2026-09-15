@@ -1,17 +1,17 @@
-import { useContext } from "react";
 import {
   useNavigate,
   useParams,
 } from "react-router";
 
 import ApplicationForm from "../components/ApplicationForm";
-import { ApplicationContext } from "../context/ApplicationContext";
+import useApplications from "../hooks/useApplications";
+
 
 function EditApplication() {
     const {
         applications,
         updateApplication,
-    } = useContext(ApplicationContext);
+    } = useApplications();
     const {id} = useParams();
     const application = applications.find(
         (application) => application.id === Number(id)

@@ -1,12 +1,11 @@
 
 import ApplicationCard from "../components/ApplicationCard";
-import { useContext, useState } from "react";
-import { ApplicationContext } from "../context/ApplicationContext";
+import { useState } from "react";
+import useApplications from "../hooks/useApplications";
 
 
 function Applications() {
-  const { applications } =
-    useContext(ApplicationContext);
+  const { applications } = useApplications();
   const [searchTerm,setSearchTerm] = useState("");
   const [statusFilter,setStatusFilter] = useState("All");
   const [sortOption, setSortOption] = useState("newest");

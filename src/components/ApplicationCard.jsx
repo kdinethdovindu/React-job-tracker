@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import { Link } from "react-router";
-import { ApplicationContext } from "../context/ApplicationContext";
+import useApplications from "../hooks/useApplications";
 
 function ApplicationCard({ application }) {
   const {
     deleteApplication,
     updateApplicationStatus,
-  } = useContext(ApplicationContext);
+  } = useApplications();
   const handleDelete = () => {
     const shouldDelete = window.confirm(
       `Delete the application for ${application.company}?`

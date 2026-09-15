@@ -1,11 +1,9 @@
 import '../App.css'
 import DashboardCard from '../components/DashboardCard'
-import { useContext } from "react";
-import { ApplicationContext } from "../context/ApplicationContext";
+import useApplications from '../hooks/useApplications';
 
 function Dashboard() {
-  const { applications } =
-    useContext(ApplicationContext);
+  const { applications } =useApplications();
   const totalApplication = applications.length;
   const appliedCount = applications.filter(
     (application) => application.status === "Applied"

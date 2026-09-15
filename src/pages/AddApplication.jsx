@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router";
-
 import ApplicationForm from "../components/ApplicationForm";
-import { ApplicationContext } from "../context/ApplicationContext";
+import useApplications from "../hooks/useApplications";
+
 
 function AddApplication() {
-  const { addApplication } =
-    useContext(ApplicationContext);
+    const { addApplication } = useApplications();
     const navigate = useNavigate();
 
     const handleAddApplication = (formData) => {
